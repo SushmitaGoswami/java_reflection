@@ -121,3 +121,45 @@ Following is the way to find the modifiers of different entities.
 - field.getModifiers() -
 
 **Real life use case** - Json Serializer which leaves the transient variable from serialization.
+
+## Annotations
+Annotation doesn't add any additional functionalities to a program, rather it attach a meta data to the target it is annotated with. Using different annotation, it is possible to find errors and warnings at compiler level. Most of the cases, annotations are retained at the compiler, but JVM ignores it. 
+
+### Annotations and Reflection
+It is possible to analyze annotation in the runtime using reflection. Some of the possible use cases of that are as follows. It allows decoupling of applicaion and reflection logic.
+
+1. Json serializer - It is possible to decouple the actual serialized name of a field from the function argument.
+2. Configuration initializers,
+3. Program sequence for test frameworks,
+
+### Meta Annotation
+Meta annotation attaches additional marking or information to the other annotation. Example of some of the metat annotations are as follows.
+1. **@Target** - This annotation specifies to which entity a particular annotation can be attached to. It can be Field, Method, class etc.
+2. **@Retention** - This annotation defines the scope and lifetime of an annotation. It can be any of the following three.
+     > RetentionPolicy.SOURCE - Annotation will be ignored by the compiler itself.
+     > RetentionPolicy.CLASS - Annotation will be retained at the compiler level and discarded by the JVM.
+     > RetentionPolicy.RUNTIME - Annotation will be retained at the compiler level and also processed by the JVM.
+
+
+### Annotation Elements
+Annotation elements can be any of the following types
+- primitive types
+- string
+- Date
+- Collection<?>
+- Class<?> 
+- and many others
+
+### Analyze an annotation
+Annotation can be obtained and analyzed at runtime using the following method,
+- **Target.isAnnotationPresent(Class</?> clz)** - return true/false. 
+- **Target.getAnnotation(Class</?> clz)** - Return the attached annotation.
+
+Target can be any of the following
+- Method
+- Class
+- Parameter
+- Field etc.
+
+
+
