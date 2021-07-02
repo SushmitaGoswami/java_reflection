@@ -151,6 +151,7 @@ Annotation elements can be any of the following types
 - and many others
 
 ### Analyze an annotation
+
 Annotation can be obtained and analyzed at runtime using the following method,
 - **Target.isAnnotationPresent(Class</?> clz)** - return true/false. 
 - **Target.getAnnotation(Class</?> clz)** - Return the attached annotation.
@@ -161,5 +162,38 @@ Target can be any of the following
 - Parameter
 - Field etc.
 
+### Repeatable Annotation
 
+If an annotation need to be applied multiple times to an entity, then it needs to be declared as repeatable and declare a container annotation. Following is the example of repeatable annotation.
 
+```
+@Target(ElementType.Method)
+@Repeatable(Roles.class)
+public @interface Role{
+  String value();
+}
+
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Roles{
+  Role[] value();
+}
+```
+
+What happens behind the scene?
+```
+@Role(value="test1")
+@Role(value="test2")
+public void test(){
+....
+}
+```
+is converted to following snippet by the compiler, i.e it replaces the repetable annotation by the container annotation.
+
+```
+@Roles(value={"test1","test2"})
+public void test(){
+....
+}
+```
+
+So, only the container annotation is available at runtime.
