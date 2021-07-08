@@ -197,3 +197,27 @@ public void test(){
 ```
 
 So, only the container annotation is available at runtime.
+
+
+## Dynamic Proxy
+- Dynamic Proxy is a class created at Runtime and it is usually starts with $Proxy.
+- Dynamic Proxy implements the methods of interface that we provide while creating the proxy object.
+- It intercepts each method call and delegates the call to an instance of InvocationHandler. Instead of the proxy holding the reference to the original object, Invocationhandler has the reference and invoke the method on that object in runtime from invoke() method.
+
+## Advantage over static proxy design pattern
+Let's say, we have to design a time measuring proxy which will measure the time taken while executing methods. Now, if there are n no of interfaces and m no of methods in each interface, then we have to write n no of proxy classes and duplicate the delegation calls to the original object in m methods. However, using dynamic proxy, we can implement a single proxy invocation handler to accomplish this.
+
+### Usecases
+- Caching Implementation
+- Security purposes
+- Better resource utilization (e.g. lazy initialization)
+- Remote method Invocation
+
+
+## Disadvantage of Reflection
+- A bit slower
+- Less Type safety
+- Less Code safety
+- No Compiler time optimization
+- Every edge cases and exception needs to be cared off!
+
